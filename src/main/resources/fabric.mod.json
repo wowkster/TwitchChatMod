@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "twitchchatmod",
+  "version": "${version}",
+  "name": "TwitchChatMod",
+  "description": "A mod that allows your twitch chat to control your minecraft client",
+  "authors": [
+    "Wowkster"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/twitchchatmod/icon.png",
+  "accessWidener" : "twitchchatmod.accesswidener",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.adrianwowk.twitchchatmod.client.TwitchChatModClient"
+    ],
+    "main": [
+      "com.adrianwowk.twitchchatmod.TwitchChatMod"
+    ]
+  },
+  "mixins": [
+    "twitchchatmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.16.5"
+  }
+}

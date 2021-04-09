@@ -1,0 +1,2 @@
+accessWidener	v1	named
+accessible    method    net/minecraft/client/gui/hud/ChatHud    addMessage    (Lnet/minecraft/text/Text;I)V
