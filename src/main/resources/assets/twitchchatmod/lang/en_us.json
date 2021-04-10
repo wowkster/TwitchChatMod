@@ -1,0 +1,11 @@
+{
+  "options.wKey" : "Forward",
+  "options.sKey" : "Backward",
+  "options.aKey" : "Strafe Left",
+  "options.dKey" : "Strafe Right",
+  "options.jumpKey" : "Jump",
+  "options.placeKey" : "Place Blocks (RMB)",
+  "options.useKey" : "Use Item (Hold RMB)",
+  "options.attackKey" : "Attack (LMB)",
+  "options.destroyKey" : "Destroy (Hold LMB)"
+}

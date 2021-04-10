@@ -25,7 +25,8 @@ public class ChatHudMixin {
                             "    §8- §b.start §7(Connects to Twitch Chat)\n" +
                             "    §8- §b.stop §7(Closes Twitch Connection)\n" +
                             "    §8- §b.status §7(Shows Connection Status)\n" +
-                            "    §8- §b.send <message> §7(Sends a chat message)\n")
+                            "    §8- §b.send <message> §7(Sends a chat message)\n" +
+                            "    §8- §b.setchannel <message> §7(Changes the channel the bot connects to)")
             , 1);
             ci.cancel();
         } else if (message.equalsIgnoreCase(".start")){
