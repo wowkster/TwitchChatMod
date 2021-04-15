@@ -1,19 +1,25 @@
 package com.adrianwowk.twitchchatmod.client;
 
 import com.adrianwowk.twitchchatmod.client.bot.FiizyBot;
+import com.adrianwowk.twitchchatmod.client.config.ChatConfig;
 import com.adrianwowk.twitchchatmod.client.config.ClientConfig;
-import com.adrianwowk.twitchchatmod.client.gui.ConfigScreen;
+import com.adrianwowk.twitchchatmod.client.gui.screen.ChatConfigScreen;
+import com.adrianwowk.twitchchatmod.client.gui.screen.ModConfigScreen;
+import com.adrianwowk.twitchchatmod.client.gui.hud.TwitchChatHud;
 import com.adrianwowk.twitchchatmod.client.input.InputCommand;
 import com.cavariux.twitchirc.Chat.Channel;
+import com.cavariux.twitchirc.Core.TwitchBot;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
@@ -30,18 +36,22 @@ public class TwitchChatModClient implements ClientModInitializer {
     public static ThreadPoolExecutor botExecutor;
     public static FiizyBot twitchBot;
     public static Thread botThread;
-    public static boolean connected = false;
     public static Channel channel;
-    public static String channelId = "wowkster";
+    public static String channelId;
+    public static TwitchChatHud HUD;
 
     public static ClientConfig CONFIG = ClientConfig.createInstance();
+    public static ChatConfig CHAT_CONFIG;
 
     static {
         CONFIG.saveConfigToFile();
         CONFIG.readConfigFromFile();
+
+        CHAT_CONFIG = new ChatConfig();
     }
 
     public KeyBinding menuKey;
+    public KeyBinding chatKey;
 
     @Override
     public void onInitializeClient() {
@@ -49,9 +59,12 @@ public class TwitchChatModClient implements ClientModInitializer {
         initCommands();
 
         botExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
+        channelId = CONFIG.mainGroup.channelId.getValue();
         twitchBot = new FiizyBot();
 
         initKeyBinds();
+
+        initRenderEvent();
     }
 
     public void initKeyBinds(){
@@ -62,15 +75,25 @@ public class TwitchChatModClient implements ClientModInitializer {
                 "category.tcm.keys"
         ));
 
+        chatKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.tcm.openChatMenu",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_BACKSLASH,
+                "category.tcm.keys"
+        ));
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (menuKey.wasPressed()){
-                MinecraftClient.getInstance().openScreen(new ConfigScreen());
+                MinecraftClient.getInstance().openScreen(new ModConfigScreen());
+            }
+            while (chatKey.wasPressed()){
+                MinecraftClient.getInstance().openScreen(new ChatConfigScreen());
             }
         });
     }
 
     public static void connectBot(){
-        if (connected){
+        if (twitchBot.isRunning()){
             stopBot();
         }
 
@@ -86,21 +109,25 @@ public class TwitchChatModClient implements ClientModInitializer {
                 twitchBot.start();
             });
             botExecutor.execute(botThread);
-            hud.addMessage(
-                    Text.of("§7[§2§lTwitch Chat Mod§7]: §aCreated Twitch IRC Connection Successfully.")
-                    , 1);
+            if (twitchBot.isRunning()) {
+                hud.addMessage(
+                        Text.of("§7[§2§lTwitch Chat Mod§7]: §aCreated Twitch IRC Connection Successfully to channel §7\"" + channelId + "\"§a.")
+                        , 1);
+            } else{
+                hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §cError Connecting to Twitch IRC!")
+                        , 1);
+            }
         } catch (Exception e){
             hud.addMessage(
                     Text.of("§7[§2§lTwitch Chat Mod§7]: §cError Connecting to Twitch IRC!")
                     , 1);
             e.printStackTrace();
         }
-        connected = true;
     }
 
     public static void stopBot(){
         ChatHud hud = MinecraftClient.getInstance().inGameHud.getChatHud();
-        if (!connected){
+        if (!twitchBot.isRunning()){
             hud.addMessage(
                     Text.of("§7[§2§lTwitch Chat Mod§7]: §cTwitch IRC Connection was not found.")
                     , 1);
@@ -120,7 +147,7 @@ public class TwitchChatModClient implements ClientModInitializer {
             hud.addMessage(
                     Text.of("§7[§2§lTwitch Chat Mod§7]: §aClosed Twitch IRC Connection Successfully.")
                     , 1);
-            connected = false;
+            hud.clear(true);
         } catch (Exception e){
             hud.addMessage(
                     Text.of("§7[§2§lTwitch Chat Mod§7]: §cError closing connection!")
@@ -149,6 +176,19 @@ public class TwitchChatModClient implements ClientModInitializer {
                 }
             }
 
+        });
+    }
+
+    private void initRenderEvent() {
+        HUD = new TwitchChatHud(MinecraftClient.getInstance());
+
+        HudRenderCallback.EVENT.register((matrixStack, tickDelta) -> {
+            if (MinecraftClient.getInstance().options.debugEnabled)
+                return;
+
+            // Render HUD
+
+            HUD.render(matrixStack, (int) tickDelta);
         });
     }
 }

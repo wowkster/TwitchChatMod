@@ -4,6 +4,7 @@
   "package": "com.adrianwowk.twitchchatmod.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MinecraftClientMixin"
   ],
   "client": [
     "ChatHudMixin"

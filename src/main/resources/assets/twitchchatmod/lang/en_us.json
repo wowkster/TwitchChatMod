@@ -7,5 +7,6 @@
   "options.placeKey" : "Place Blocks (RMB)",
   "options.useKey" : "Use Item (Hold RMB)",
   "options.attackKey" : "Attack (LMB)",
-  "options.destroyKey" : "Destroy (Hold LMB)"
+  "options.destroyKey" : "Destroy (Hold LMB)",
+  "options.showChat" : "Show Chat"
 }

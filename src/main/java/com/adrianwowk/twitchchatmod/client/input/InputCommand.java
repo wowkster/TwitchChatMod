@@ -23,6 +23,7 @@ public abstract class InputCommand {
         runningTicks++;
         if (!getKey().isPressed()) {
             getKey().setPressed(true);
+            getKey().timesPressed++;
         }
     }
     abstract public KeyBinding getKey();

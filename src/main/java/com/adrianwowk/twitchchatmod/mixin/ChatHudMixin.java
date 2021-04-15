@@ -52,7 +52,7 @@ public class ChatHudMixin {
                 return;
             }
             try {
-                if (connected) {
+                if (twitchBot.isRunning()) {
                     twitchBot.sendMessage(msg, channel);
                     hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §aSuccessfully sent message §8- §7\"" + msg + "\""), 1);
                 } else {
@@ -76,9 +76,11 @@ public class ChatHudMixin {
 
             String channelName = args[1];
 
-            if (connected) {
+            if (twitchBot.isRunning()) {
                 stopBot();
                 channelId = channelName;
+                CONFIG.mainGroup.channelId.setValue(channelName);
+                CONFIG.saveConfigToFile();
                 connectBot();
                 hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §aChannel was set to §7\"" + channelName + "\"§a and connection was restarted."));
             } else {

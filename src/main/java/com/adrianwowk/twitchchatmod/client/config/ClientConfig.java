@@ -38,6 +38,19 @@ public class ClientConfig extends Config {
         public final ConfigItem<Integer> attackTicks;
         public final ConfigItem<Integer> destroyTicks;
 
+        public final ConfigItem<Boolean> showChat;
+        public final ConfigItem<Double> chatTextOpacity;
+        public final ConfigItem<Double> chatBackgroundOpacity;
+        public final ConfigItem<Double> chatScale;
+        public final ConfigItem<Double> chatLineSpacing;
+        public final ConfigItem<Double> chatWidth;
+        public final ConfigItem<Double> chatHeight;
+
+        public final ConfigItem<Double> chatXOffset;
+        public final ConfigItem<Double> chatYOffset;
+
+        public final ConfigItem<String> channelId;
+
         public ConfigGroup(ConfigItem ... args) {
             super(of(args), "config");
 
@@ -61,32 +74,61 @@ public class ClientConfig extends Config {
             this.attackTicks = args[16];
             this.destroyTicks = args[17];
 
+            this.showChat = args[18]; // done -
+            this.chatTextOpacity = args[19]; // done -
+            this.chatBackgroundOpacity = args[20]; // done -
+            this.chatScale = args[21]; // done -
+            this.chatLineSpacing = args[22]; // done -
+            this.chatWidth = args[23]; // done -
+            this.chatHeight = args[24]; // done -
+
+            this.chatXOffset = args[25]; // done
+            this.chatYOffset = args[26];  // done
+
+            this.channelId = args[27];
+
         }
     }
 
     public static ClientConfig createInstance(){
-        final ConfigItem<Boolean> wKey = new ConfigItem<>("wKey", true, "wKey");
-        final ConfigItem<Boolean> sKey = new ConfigItem<>("sKey", true, "sKey");
-        final ConfigItem<Boolean> aKey = new ConfigItem<>("aKey", true, "aKey");
-        final ConfigItem<Boolean> dKey = new ConfigItem<>("dKey", true, "dKey");
-        final ConfigItem<Boolean> jumpKey = new ConfigItem<>("jumpKey", true, "jumpKey");
-        final ConfigItem<Boolean> placeKey = new ConfigItem<>("placeKey", true, "placeKey");
-        final ConfigItem<Boolean> useKey = new ConfigItem<>("useKey", true, "useKey");
-        final ConfigItem<Boolean> attackKey = new ConfigItem<>("attackKey", true, "attackKey");
-        final ConfigItem<Boolean> destroyKey = new ConfigItem<>("destroyKey", true, "destroyKey");
+        ConfigItem<Boolean> wKey = new ConfigItem<>("wKey", true, "wKey");
+        ConfigItem<Boolean> sKey = new ConfigItem<>("sKey", true, "sKey");
+        ConfigItem<Boolean> aKey = new ConfigItem<>("aKey", true, "aKey");
+        ConfigItem<Boolean> dKey = new ConfigItem<>("dKey", true, "dKey");
+        ConfigItem<Boolean> jumpKey = new ConfigItem<>("jumpKey", true, "jumpKey");
+        ConfigItem<Boolean> placeKey = new ConfigItem<>("placeKey", true, "placeKey");
+        ConfigItem<Boolean> useKey = new ConfigItem<>("useKey", true, "useKey");
+        ConfigItem<Boolean> attackKey = new ConfigItem<>("attackKey", true, "attackKey");
+        ConfigItem<Boolean> destroyKey = new ConfigItem<>("destroyKey", true, "destroyKey");
 
-        final ConfigItem<Integer> wTicks = new ConfigItem<>("wTicks", 12, "wTicks");
-        final ConfigItem<Integer> sTicks = new ConfigItem<>("sTicks", 12, "sTicks");
-        final ConfigItem<Integer> aTicks = new ConfigItem<>("aTicks", 12, "aTicks");
-        final ConfigItem<Integer> dTicks = new ConfigItem<>("dTicks", 12, "dTicks");
-        final ConfigItem<Integer> jumpTicks = new ConfigItem<>("jumpTicks", 10, "jumpTicks");
-        final ConfigItem<Integer> placeTicks = new ConfigItem<>("placeTicks", 1, "placeTicks");
-        final ConfigItem<Integer> useTicks = new ConfigItem<>("useTicks", 35, "useTicks");
-        final ConfigItem<Integer> attackTicks = new ConfigItem<>("attackTicks", 2, "attackTicks");
-        final ConfigItem<Integer> destroyTicks = new ConfigItem<>("destroyTicks", 20, "destroyTicks");
+        ConfigItem<Integer> wTicks = new ConfigItem<>("wTicks", 12, "wTicks");
+        ConfigItem<Integer> sTicks = new ConfigItem<>("sTicks", 12, "sTicks");
+        ConfigItem<Integer> aTicks = new ConfigItem<>("aTicks", 12, "aTicks");
+        ConfigItem<Integer> dTicks = new ConfigItem<>("dTicks", 12, "dTicks");
+        ConfigItem<Integer> jumpTicks = new ConfigItem<>("jumpTicks", 10, "jumpTicks");
+        ConfigItem<Integer> placeTicks = new ConfigItem<>("placeTicks", 1, "placeTicks");
+        ConfigItem<Integer> useTicks = new ConfigItem<>("useTicks", 35, "useTicks");
+        ConfigItem<Integer> attackTicks = new ConfigItem<>("attackTicks", 2, "attackTicks");
+        ConfigItem<Integer> destroyTicks = new ConfigItem<>("destroyTicks", 20, "destroyTicks");
+
+        ConfigItem<Boolean> showChat = new ConfigItem<>("showChat", true, "showChat");
+        ConfigItem<Double> chatTextOpacity = new ConfigItem<>("chatTextOpacity", 1.0, "chatTextOpacity");
+        ConfigItem<Double> chatBackgroundOpacity = new ConfigItem<>("chatBackgroundOpacity", 0.5, "wTicks");
+        ConfigItem<Double> chatScale = new ConfigItem<>("chatScale", 1.0, "chatScale");
+        ConfigItem<Double> chatLineSpacing = new ConfigItem<>("chatLineSpacing", 0.0, "chatLineSpacing");
+        ConfigItem<Double> chatWidth = new ConfigItem<>("chatWidth", 0.5, "chatWidth");
+        ConfigItem<Double> chatHeight = new ConfigItem<>("chatHeight", 0.5, "chatHeight");
+
+        ConfigItem<Double> chatXOffset = new ConfigItem<>("chatXOffset", 0.0, "chatXOffset");
+        ConfigItem<Double> chatYOffset = new ConfigItem<>("chatYOffset", 0.2, "chatYOffset");
+
+        ConfigItem<String> channelId = new ConfigItem<>("channelId", "wowkster", "channelId");
+
 
         return new ClientConfig(new ConfigGroup(wKey, sKey, aKey, dKey, jumpKey, placeKey, useKey, attackKey, destroyKey,
-                wTicks, sTicks, aTicks, dTicks, jumpTicks, placeTicks, useTicks, attackTicks, destroyTicks));
+                wTicks, sTicks, aTicks, dTicks, jumpTicks, placeTicks, useTicks, attackTicks, destroyTicks,
+                showChat, chatTextOpacity, chatBackgroundOpacity, chatScale, chatLineSpacing, chatWidth, chatHeight,
+                chatXOffset, chatYOffset, channelId));
     }
 
     @SafeVarargs

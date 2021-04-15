@@ -1,10 +1,13 @@
 package com.adrianwowk.twitchchatmod.client.gui;
 
+import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.options.BooleanOption;
 import net.minecraft.client.options.DoubleOption;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.injection.At;
 
+import static com.adrianwowk.twitchchatmod.client.TwitchChatModClient.CHAT_CONFIG;
+import static com.adrianwowk.twitchchatmod.client.TwitchChatModClient.CONFIG;
 import static com.adrianwowk.twitchchatmod.client.input.Commands.*;
 
 public class ConfigOptions {
@@ -65,4 +68,46 @@ public class ConfigOptions {
             (gameOptions) -> (double) DESTROY.getMaxRunningTicks(), (gameOptions, ticks) -> DESTROY.setMaxRunningTicks(ticks.intValue()), (gameOptions, value) -> Text.of("Ticks: " + value.get(gameOptions)));
 
 
+    public static final BooleanOption SHOW_CHAT = new BooleanOption("options.showChat",
+            (gameOptions) -> CHAT_CONFIG.showChat, (gameOptions, key) -> CHAT_CONFIG.showChat = key);
+
+    public static final DoubleOption CHAT_TEXT_OPACITY = new DoubleOption("options.chatTextOpacity", 0, 1, 0.01f,
+            (gameOptions) -> CHAT_CONFIG.chatTextOpacity,
+            (gameOptions, value) -> CHAT_CONFIG.chatTextOpacity = value,
+            (gameOptions, value) -> Text.of(String.format("Chat Text Opacity: %d%%", (int) (value.get(gameOptions) * 100))));
+
+    public static final DoubleOption CHAT_BACKGROUND_OPACITY = new DoubleOption("options.chatBackgroundOpacity", 0, 1, 0.01f,
+            (gameOptions) -> CHAT_CONFIG.chatBackgroundOpacity,
+            (gameOptions, value) -> CHAT_CONFIG.chatBackgroundOpacity = value,
+            (gameOptions, value) -> Text.of(String.format("Chat Background Opacity: %d%%", (int) (value.get(gameOptions) * 100))));
+
+    public static final DoubleOption CHAT_SCALE = new DoubleOption("options.chatScale", 0, 1, 0.01f,
+            (gameOptions) -> CHAT_CONFIG.chatScale,
+            (gameOptions, value) -> CHAT_CONFIG.chatScale = value,
+            (gameOptions, value) -> Text.of(String.format("Chat Scale: %d%%", (int) (value.get(gameOptions) * 100))));
+
+    public static final DoubleOption CHAT_LINE_SPACING = new DoubleOption("options.chatLineSpacing", 0, 1, 0.01f,
+            (gameOptions) -> CHAT_CONFIG.chatLineSpacing,
+            (gameOptions, value) -> CHAT_CONFIG.chatLineSpacing = value,
+            (gameOptions, value) -> Text.of(String.format("Chat Line Spacing: %d%%", (int) (value.get(gameOptions) * 100))));
+
+    public static final DoubleOption CHAT_WIDTH = new DoubleOption("options.chatWidth", 0, 1, 0.01f,
+            (gameOptions) -> CHAT_CONFIG.chatWidth,
+            (gameOptions, value) -> CHAT_CONFIG.chatWidth = value,
+            (gameOptions, value) -> Text.of(String.format("Chat Width: %dpx", ChatHud.getWidth(value.get(gameOptions)))));
+
+    public static final DoubleOption CHAT_HEIGHT = new DoubleOption("options.chatWidth", 0, 1, 0.01f,
+            (gameOptions) -> CHAT_CONFIG.chatHeight,
+            (gameOptions, value) -> CHAT_CONFIG.chatHeight = value,
+            (gameOptions, value) -> Text.of(String.format("Chat Height: %dpx", ChatHud.getHeight(value.get(gameOptions)))));
+
+    public static final DoubleOption CHAT_X_OFFSET = new DoubleOption("options.chatXOffset", 0, 1, 0.01f,
+            (gameOptions) -> CHAT_CONFIG.chatXOffset,
+            (gameOptions, value) -> CHAT_CONFIG.chatXOffset = value,
+            (gameOptions, value) -> Text.of(String.format("Chat X Offset: %d%%", (int) (value.get(gameOptions) * 100))));
+
+    public static final DoubleOption CHAT_Y_OFFSET = new DoubleOption("options.chatYOffset", 0, 1, 0.01f,
+            (gameOptions) -> CHAT_CONFIG.chatYOffset,
+            (gameOptions, value) -> CHAT_CONFIG.chatYOffset = value,
+            (gameOptions, value) -> Text.of(String.format("Chat Y Offset: %d%%", (int) (value.get(gameOptions) * 100))));
 }

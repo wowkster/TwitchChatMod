@@ -1,2 +1,15 @@
 accessWidener	v1	named
 accessible    method    net/minecraft/client/gui/hud/ChatHud    addMessage    (Lnet/minecraft/text/Text;I)V
+accessible    field    net/minecraft/client/gui/hud/ChatHud    client    Lnet/minecraft/client/MinecraftClient;
+accessible    field    net/minecraft/client/gui/hud/ChatHud    messageHistory    Ljava/util/List;
+accessible    field    net/minecraft/client/gui/hud/ChatHud    messages    Ljava/util/List;
+accessible    field    net/minecraft/client/gui/hud/ChatHud    visibleMessages    Ljava/util/List;
+accessible    field    net/minecraft/client/gui/hud/ChatHud    messageQueue    Ljava/util/Deque;
+accessible    field    net/minecraft/client/gui/hud/ChatHud    scrolledLines    I
+accessible    field    net/minecraft/client/gui/hud/ChatHud    hasUnreadNewMessages    Z
+accessible    field    net/minecraft/client/gui/hud/ChatHud    lastMessageAddedTime    J
+accessible    method    net/minecraft/client/gui/hud/ChatHud    isChatHidden    ()Z
+accessible    method    net/minecraft/client/gui/hud/ChatHud    processMessageQueue    ()V
+accessible    method    net/minecraft/client/gui/hud/ChatHud    isChatFocused    ()Z
+accessible    method    net/minecraft/client/gui/hud/ChatHud    getMessageOpacityMultiplier    (I)D
+accessible    field    net/minecraft/client/options/KeyBinding    timesPressed    I

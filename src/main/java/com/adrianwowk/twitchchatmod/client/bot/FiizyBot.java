@@ -20,7 +20,7 @@ public class FiizyBot extends TwitchBot {
     @Override
     public void onMessage(User user, Channel channel, String message)
     {
-        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("§7[§5Twitch Chat§7]: §" + (user.isMod(channel) ? "a" : "8") + "(" + user + ") §f" + message));
+        HUD.addMessage(Text.of("§7[§5Chat§7]: §" + (user.isMod(channel) ? "a" : "8") + "(" + user + ") §f" + message));
         if (message.equalsIgnoreCase("j"))
             JUMP.enable();
         else if (message.equalsIgnoreCase("w"))
