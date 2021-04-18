@@ -2,6 +2,7 @@ package com.adrianwowk.twitchchatmod.client.input.commands;
 
 import com.adrianwowk.twitchchatmod.client.input.InputCommand;
 import net.minecraft.client.options.KeyBinding;
+import net.minecraft.util.hit.HitResult;
 
 import static com.adrianwowk.twitchchatmod.client.TwitchChatModClient.CONFIG;
 
@@ -14,6 +15,13 @@ public class DestroyCommand extends InputCommand {
 
     public KeyBinding getKey() {
         return client.options.keyAttack;
+    }
+
+    @Override
+    public void enable() {
+        if (client.crosshairTarget != null && client.crosshairTarget.getType() == HitResult.Type.BLOCK) {
+            super.enable();
+        }
     }
 
     @Override

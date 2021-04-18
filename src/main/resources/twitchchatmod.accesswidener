@@ -13,3 +13,4 @@ accessible    method    net/minecraft/client/gui/hud/ChatHud    processMessageQu
 accessible    method    net/minecraft/client/gui/hud/ChatHud    isChatFocused    ()Z
 accessible    method    net/minecraft/client/gui/hud/ChatHud    getMessageOpacityMultiplier    (I)D
 accessible    field    net/minecraft/client/options/KeyBinding    timesPressed    I
+accessible    field    net/minecraft/client/options/KeyBinding    keyToBindings    Ljava/util/Map;

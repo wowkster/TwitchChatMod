@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.7-SNAPSHOT'
+    id 'fabric-loom' version '0.6-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -17,6 +17,7 @@ minecraft {
 repositories {
     flatDir {
         dirs 'libs'
+        dirs '/'
     }
 }
 
@@ -32,7 +33,9 @@ dependencies {
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
 
-    implementation name: 'TwitchIRC_v1.2'
+    modImplementation name: 'twitch_irc'
+    include name: 'twitch_irc'
+
     modImplementation "com.oroarmor:oro-config-fabric:${project.oro_version}"
     include "com.oroarmor:oro-config-fabric:${project.oro_version}"
 }

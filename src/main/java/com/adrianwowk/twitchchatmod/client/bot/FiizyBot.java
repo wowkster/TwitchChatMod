@@ -10,6 +10,20 @@ import static com.adrianwowk.twitchchatmod.client.input.Commands.*;
 import static com.adrianwowk.twitchchatmod.client.TwitchChatModClient.*;
 
 public class FiizyBot extends TwitchBot {
+
+    public static final String joinMessage = "Hi, I'm FiizyBot! FiizyBot is a Twitch bot which can control the in game movements of a Minecraft player using certain chat commands. To see all the commands, type \"?fiizy\"";
+    public static final String leaveMessage = "Bye! FiizyBot is disconnecting from this Twitch chat channel.";
+    public static final String commandsMessage = "FiizyBot has a lot of commands which can control player movement. They include: " +
+            "\"w\" (Move forward)" +
+            ", \"s\" (Move backward)" +
+            ", \"a\" (Strafe left)" +
+            ", \"d\" (Strafe right)" +
+            ", \"j\" (Jump)" +
+            ", \"u\" (Use/Eat)" +
+            ", \"p\" (Place Block)" +
+            ", \"t\" (Attack Entity)" +
+            ", \"b\" (Break Block)";
+
     public FiizyBot ()
     {
         this.setUsername("FiizyBot");
@@ -39,5 +53,9 @@ public class FiizyBot extends TwitchBot {
             ATTACK.enable();
         else if (message.equalsIgnoreCase("b"))
             DESTROY.enable();
+        else if (message.equalsIgnoreCase("c"))
+            shouldClick = true;
+        else if (message.equalsIgnoreCase("?fiizy"))
+            sendMessage(commandsMessage, channel);
     }
 }

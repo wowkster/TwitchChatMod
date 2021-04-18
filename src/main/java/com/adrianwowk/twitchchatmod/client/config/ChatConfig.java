@@ -17,27 +17,27 @@ public class ChatConfig {
     public double chatYOffset;
 
     public ChatConfig(){
-        showChat = CONFIG.mainGroup.showChat.getValue();
-        chatTextOpacity = CONFIG.mainGroup.chatTextOpacity.getValue();
-        chatBackgroundOpacity = CONFIG.mainGroup.chatBackgroundOpacity.getValue();
-        chatScale = CONFIG.mainGroup.chatScale.getValue();
-        chatLineSpacing = CONFIG.mainGroup.chatLineSpacing.getValue();
-        chatWidth = CONFIG.mainGroup.chatWidth.getValue();
-        chatHeight = CONFIG.mainGroup.chatHeight.getValue();
-        chatXOffset = CONFIG.mainGroup.chatXOffset.getValue();
-        chatYOffset = CONFIG.mainGroup.chatYOffset.getValue();
+        showChat = ClientConfig.ConfigGroup.showChat.getValue();
+        chatTextOpacity = ClientConfig.ConfigGroup.chatTextOpacity.getValue();
+        chatBackgroundOpacity = ClientConfig.ConfigGroup.chatBackgroundOpacity.getValue();
+        chatScale = ClientConfig.ConfigGroup.chatScale.getValue();
+        chatLineSpacing = ClientConfig.ConfigGroup.chatLineSpacing.getValue();
+        chatWidth = ClientConfig.ConfigGroup.chatWidth.getValue();
+        chatHeight = ClientConfig.ConfigGroup.chatHeight.getValue();
+        chatXOffset = ClientConfig.ConfigGroup.chatXOffset.getValue();
+        chatYOffset = ClientConfig.ConfigGroup.chatYOffset.getValue();
     }
 
     public void save(){
-        CONFIG.mainGroup.showChat.setValue(showChat);
-        CONFIG.mainGroup.chatTextOpacity.setValue(chatTextOpacity);
-        CONFIG.mainGroup.chatBackgroundOpacity.setValue(chatBackgroundOpacity);
-        CONFIG.mainGroup.chatScale.setValue(chatScale);
-        CONFIG.mainGroup.chatLineSpacing.setValue(chatLineSpacing);
-        CONFIG.mainGroup.chatWidth.setValue(chatWidth);
-        CONFIG.mainGroup.chatHeight.setValue(chatHeight);
-        CONFIG.mainGroup.chatXOffset.setValue(chatXOffset);
-        CONFIG.mainGroup.chatYOffset.setValue(chatYOffset);
+        ClientConfig.ConfigGroup.showChat.setValue(showChat);
+        ClientConfig.ConfigGroup.chatTextOpacity.setValue(chatTextOpacity);
+        ClientConfig.ConfigGroup.chatBackgroundOpacity.setValue(chatBackgroundOpacity);
+        ClientConfig.ConfigGroup.chatScale.setValue(chatScale);
+        ClientConfig.ConfigGroup.chatLineSpacing.setValue(chatLineSpacing);
+        ClientConfig.ConfigGroup.chatWidth.setValue(chatWidth);
+        ClientConfig.ConfigGroup.chatHeight.setValue(chatHeight);
+        ClientConfig.ConfigGroup.chatXOffset.setValue(chatXOffset);
+        ClientConfig.ConfigGroup.chatYOffset.setValue(chatYOffset);
 
         MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Saved Chat Settings"));
 

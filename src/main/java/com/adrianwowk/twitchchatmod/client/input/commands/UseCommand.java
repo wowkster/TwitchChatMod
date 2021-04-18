@@ -2,6 +2,8 @@ package com.adrianwowk.twitchchatmod.client.input.commands;
 
 import com.adrianwowk.twitchchatmod.client.input.InputCommand;
 import net.minecraft.client.options.KeyBinding;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.UseAction;
 
 import static com.adrianwowk.twitchchatmod.client.TwitchChatModClient.CONFIG;
 
@@ -14,6 +16,17 @@ public class UseCommand extends InputCommand {
 
     public KeyBinding getKey() {
         return client.options.keyUse;
+    }
+
+
+    @Override
+    public void enable() {
+        ItemStack item = client.player.getMainHandStack();
+        UseAction action = item.getItem().getUseAction(item);
+
+        if (action == UseAction.DRINK || action == UseAction.EAT) {
+            super.enable();
+        }
     }
 
     @Override

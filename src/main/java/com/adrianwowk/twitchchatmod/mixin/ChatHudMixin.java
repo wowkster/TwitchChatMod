@@ -1,5 +1,6 @@
 package com.adrianwowk.twitchchatmod.mixin;
 
+import com.adrianwowk.twitchchatmod.client.config.ClientConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -10,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static com.adrianwowk.twitchchatmod.client.TwitchChatModClient.*;
+import static com.adrianwowk.twitchchatmod.client.config.ClientConfig.ConfigGroup.*;
 
 @Mixin(ClientPlayerEntity.class)
 public class ChatHudMixin {
@@ -26,8 +28,8 @@ public class ChatHudMixin {
                             "    §8- §b.stop §7(Closes Twitch Connection)\n" +
                             "    §8- §b.status §7(Shows Connection Status)\n" +
                             "    §8- §b.send <message> §7(Sends a chat message)\n" +
-                            "    §8- §b.setchannel <message> §7(Changes the channel the bot connects to)")
-            , 1);
+                            "    §8- §b.setchannel <channel_id> §7(Changes the channel the bot connects to)")
+            , 0);
             ci.cancel();
         } else if (message.equalsIgnoreCase(".start")){
             connectBot();
@@ -54,7 +56,7 @@ public class ChatHudMixin {
             try {
                 if (twitchBot.isRunning()) {
                     twitchBot.sendMessage(msg, channel);
-                    hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §aSuccessfully sent message §8- §7\"" + msg + "\""), 1);
+                    hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §aSuccessfully sent message §8- §7\"" + msg + "\""), 0);
                 } else {
                     hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §cNot connected to an IRC channel. Please use §b.start§c first."));
                 }
@@ -78,16 +80,24 @@ public class ChatHudMixin {
 
             if (twitchBot.isRunning()) {
                 stopBot();
-                channelId = channelName;
-                CONFIG.mainGroup.channelId.setValue(channelName);
+                channelId.setValue(channelName);
                 CONFIG.saveConfigToFile();
                 connectBot();
                 hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §aChannel was set to §7\"" + channelName + "\"§a and connection was restarted."));
             } else {
-                channelId = channelName;
+                channelId.setValue(channelName);
+                CONFIG.saveConfigToFile();
                 hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §aChannel was set to §7\"" + channelName + "\"."));
             }
 
+        } else if (message.startsWith(".input-on")){
+            ci.cancel();
+            allowManualInput = true;
+            hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §aManual input enabled."));
+        } else if (message.startsWith(".input-off")){
+            ci.cancel();
+            allowManualInput = false;
+            hud.addMessage(Text.of("§7[§2§lTwitch Chat Mod§7]: §aManual input disabled."));
         }
     }
 }
